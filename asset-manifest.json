@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/Reacttsx-Doctor-App/static/css/main.343966c3.css",
+    "main.js": "/Reacttsx-Doctor-App/static/js/main.4950532c.js",
+    "static/js/787.8a042aa0.chunk.js": "/Reacttsx-Doctor-App/static/js/787.8a042aa0.chunk.js",
+    "static/media/fizer.jpg": "/Reacttsx-Doctor-App/static/media/fizer.a44bd75a6ce601b52166.jpg",
+    "static/media/sinovac.jpg": "/Reacttsx-Doctor-App/static/media/sinovac.0750e743be38363f9033.jpg",
+    "static/media/sinofarm.jpg": "/Reacttsx-Doctor-App/static/media/sinofarm.defb03d9926d34cabf86.jpg",
+    "static/media/moderna.jpg": "/Reacttsx-Doctor-App/static/media/moderna.62ea8b745b1da14c64bf.jpg",
+    "static/media/astar.jpg": "/Reacttsx-Doctor-App/static/media/astar.7a891484b5b060d2b8a9.jpg",
+    "static/media/logo.png": "/Reacttsx-Doctor-App/static/media/logo.1c73bcc0843915392d8d.png",
+    "index.html": "/Reacttsx-Doctor-App/index.html",
+    "main.343966c3.css.map": "/Reacttsx-Doctor-App/static/css/main.343966c3.css.map",
+    "main.4950532c.js.map": "/Reacttsx-Doctor-App/static/js/main.4950532c.js.map",
+    "787.8a042aa0.chunk.js.map": "/Reacttsx-Doctor-App/static/js/787.8a042aa0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.343966c3.css",
+    "static/js/main.4950532c.js"
+  ]
+}
