@@ -1,0 +1,21 @@
+{
+  "user": [
+    {
+      "id": "test",
+      "name": "mr.test",
+      "password": "1234",
+      "email": "foryou@gmail.com",
+      "phone": "123456789",
+      "country": "india",
+      "address": "test address",
+      "gender": "male",
+      "status": "จองคิวฉีดวัคซีนเรียบร้อยเเล้ว",
+      "hospital": "โรงพยาบาลนครพิงค์",
+      "numvac": "1",
+      "vac": "sinovac",
+      "daypoint": "2023-05-14",
+      "timepoint": "12:00",
+      "symptoms": "ปวดหัว"
+    }
+  ]
+}
