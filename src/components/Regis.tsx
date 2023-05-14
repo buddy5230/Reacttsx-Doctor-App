@@ -98,7 +98,7 @@ const Register = () => {
         .then((res) => {
           if (res.ok) {
             alert("สมัครสมาชิคเรียบร้อยเเล้ว.");
-            usenavigate("/login");
+            usenavigate("/");
           } else {
             res.json().then((data) => {
               alert("ล้มเหลว: " + data.message);
@@ -119,7 +119,7 @@ const Register = () => {
         height="200"
       />
       <form
-        className="bg-white shadow-md rounded px-10 pt-6 pb-8 mb-4 border-back"
+        className="bg-white shadow-md rounded px-10 pt-6 pb-8 mb-4 w-full md:w-auto md:mx-10"
         onSubmit={handlesubmit}
       >
         <div className="mb-4">
@@ -244,7 +244,7 @@ const Register = () => {
         </button>
         |  
         <Link
-          to={"/login"}
+          to={"/"}
           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         >
           ยกเลิก

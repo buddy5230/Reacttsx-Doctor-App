@@ -4,26 +4,6 @@ import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import logo from "../../images/logo.png";
 
 const Appheader = () => {
-  /*const [displayusername, displayusernameupdate] = useState("");
-  const [showmenu, showmenuupdateupdate] = useState(false);
-  const usenavigate = useNavigate();
-  const location = useLocation();
-  
-  
-  useEffect(() => {
-    if (location.pathname === "/login" || location.pathname === "/register") {
-      showmenuupdateupdate(false);
-    } else {
-      showmenuupdateupdate(true);
-      let username = sessionStorage.getItem("username");
-      if (username === "" || username === null) {
-        usenavigate("/login");
-      } else {
-        displayusernameupdate(username);
-      }
-    }
-  }, [location]);*/
-
   const [nav, setNav] = useState(false);
 
   const handleNav = () => {
@@ -44,7 +24,7 @@ const Appheader = () => {
           className="m-2 p-2 font-bold  text-2 hover:text-green-700"
           style={{ whiteSpace: "nowrap" }}
         >
-          <Link to={"/"}>หน้าหลัก</Link>
+          <Link to={"/home"}>หน้าหลัก</Link>
         </li>
         <li
           className="m-2 p-2 font-bold text-2 hover:text-green-700"
@@ -69,7 +49,7 @@ const Appheader = () => {
           className="bg-red-500 hover:bg-red-700 text-white font-[Poppins] duration-500 px-4 py-2 mx-4 hover:bg-cyan-500 rounded "
           style={{ whiteSpace: "nowrap" }}
         >
-          <Link to={"/login"}>ออกจากระบบ</Link>
+          <Link to={"/"}>ออกจากระบบ</Link>
         </button>
       </ul>
       <nav onClick={handleNav} className="block md:hidden">

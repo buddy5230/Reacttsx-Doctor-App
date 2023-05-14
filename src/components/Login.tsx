@@ -36,7 +36,7 @@ const Login = () => {
             sessionStorage.setItem("username", username);
             sessionStorage.setItem("userId", resp.userId);
             sessionStorage.setItem("jwttoken", resp.jwtToken);
-            usenavigate("/");
+            usenavigate("/home");
           }
         })
         .catch((err) => {
