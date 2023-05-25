@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-//import { toast } from "react-toastify";
 import logo from "../images/logo.png";
-
+import { toast } from "react-toastify";
 const Register = () => {
   const [id, setId] = useState<string>("");
   const [name, setName] = useState<string>("");
@@ -11,7 +10,7 @@ const Register = () => {
   const [phone, setPhone] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [gender, setGender] = useState<string>("");
-  const [status, setStatus] = useState<string>("");
+  const [status, setStatus] = useState<string>("ยังไม่ได้รับวัคซีน");
   const [hospital, setHospital] = useState<string>("");
   const [numvac, setNumvac] = useState<string>("");
   const [vac, setVac] = useState<string>("");
@@ -22,51 +21,60 @@ const Register = () => {
 
   const IsValidate = () => {
     let isproceed = true;
-    let errormessage = "กรุณาเติมข้อมูลลงในช่อง ";
+    let errormessage = "กรุณาเติมข้อมูลลงในช่องให้ครบ";
+  
     if (id === null || id === "") {
       isproceed = false;
       errormessage += " ยูสเซอร์เนม";
     }
+  
     if (name === null || name === "") {
       isproceed = false;
       errormessage += " ชื่อ-นามสกุล";
     }
+  
     if (password === null || password === "") {
       isproceed = false;
       errormessage += " รหัสผ่าน";
     }
+  
     if (email === null || email === "") {
       isproceed = false;
       errormessage += " อีเมล์";
+    } else if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
+      isproceed = false;
+      errormessage = "กรุณากรอกอีเมล์ให้ถูกต้อง";
     }
+  
     if (address === null || address === "") {
       isproceed = false;
       errormessage += " ที่อยู่";
     }
+  
     if (gender === null || gender === "") {
       isproceed = false;
       errormessage += " เพศ";
-    }
-    if (!/^\d+$/.test(phone)) {
-      isproceed = false;
-      errormessage += "เบอร์โทรศัพท์ที่เป็นตัวเลข";
-    } else if (phone === null || phone === "") {
+    }  
+  
+    if (phone === null || phone === "") {
       isproceed = false;
       errormessage += " เบอร์โทรศัพท์";
     } else if (phone.length !== 10) {
       isproceed = false;
       errormessage += "เบอร์โทรศัพท์ให้ครบ 10 ตัว";
+    } else if (!/^[0-9]{10}$/.test(phone)) {
+      isproceed = false;
+      errormessage = "กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง";
+      
     }
-
+  
     if (!isproceed) {
-      alert(errormessage);
-    } else {
-      if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
-      } else {
-        isproceed = false;
-        alert("กรุณาใส่อีเมล์ให้ถูกต้อง");
-      }
+      isproceed = false;
+      toast.error(errormessage, {
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
+  
     return isproceed;
   };
 
@@ -97,16 +105,25 @@ const Register = () => {
       })
         .then((res) => {
           if (res.ok) {
-            alert("สมัครสมาชิคเรียบร้อยเเล้ว.");
+            toast.success("สมัครสมาชิคเรียบร้อยเเล้ว", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+            // alert("สมัครสมาชิคเรียบร้อยเเล้ว.");
             usenavigate("/");
           } else {
             res.json().then((data) => {
-              alert("ล้มเหลว: " + data.message);
+              toast.error("ล้มเหลว: " + data.message, {
+                position: toast.POSITION.TOP_CENTER,
+              });
+              //alert("ล้มเหลว: " + data.message);
             });
           }
         })
         .catch((err) => {
-          alert("ล้มเหลว: " + err.message);
+          toast.error("ล้มเหลว: " + err.message, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          //alert("ล้มเหลว: " + err.message);
         });
     }
   };
@@ -151,7 +168,7 @@ const Register = () => {
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              type="password" 
+              type="password"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="รหัสผ่าน"
             ></input>
@@ -197,10 +214,14 @@ const Register = () => {
               onChange={(e) => setPhone(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="เบอร์โทรศัพท์"
+              type="tel"
             ></input>
           </div>
           <div className="mb-4 ">
-            <label className="block text-gray-700 font-bold mb-4" htmlFor="Gender">
+            <label
+              className="block text-gray-700 font-bold mb-4"
+              htmlFor="Gender"
+            >
               เพศ <span className="errmsg">*</span>
             </label>
             <input
@@ -242,7 +263,7 @@ const Register = () => {
         >
           สมัครสมาชิค
         </button>
-        |  
+        |
         <Link
           to={"/"}
           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"

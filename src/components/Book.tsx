@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Appheader from "./subcomponents/Header";
 import { Link, useNavigate } from "react-router-dom";
-
+import { toast } from 'react-toastify';
 const Book = () => {
   const usenavigate = useNavigate();
   const [status, statusupdate] = useState<string>("");
@@ -31,14 +31,17 @@ const Book = () => {
       isproceed = false;
     }
     if (!isproceed) {
-      alert(errormessage);
+      toast.error(errormessage, {
+        position: toast.POSITION.TOP_CENTER, 
+      });
+     // alert(errormessage);
     } 
     
     return isproceed;
   };
 
   useEffect(() => {
-    fetch(`http://localhost:4000/users/` + id)
+    fetch(`https://aware-earmuffs-dog.cyclic.app/` + id)
       .then((response) => response.json())
       .then((data) => {
         const status = data.status;
@@ -76,16 +79,25 @@ const Book = () => {
                 vacupdate(vac);
                 daypointupdate(daypoint);
                 timepointupdate(timepoint);
-                alert("จองวัคซีนสำเร็จเเล้ว");
+                toast.success("จองวัคซีนสำเร็จเเล้ว", {
+                  position: toast.POSITION.TOP_CENTER, 
+                });
+                //alert("จองวัคซีนสำเร็จเเล้ว");
                 usenavigate("/home");
               })
               .catch((err) => {
-                alert("ล้มเหลว :" + err.message);
+                toast.error("ล้มเหลว :" + err.message, {
+                  position: toast.POSITION.TOP_CENTER, 
+                });
+                //alert("ล้มเหลว :" + err.message);
               });
           })
           .catch((error) => console.error(error));
       } else { 
-        alert("คุณได้ทำการจองวัคซีนเเล้วเเต่ยังไม่ได้เข้ารับการฉีดวัคซีน");
+        toast.error("คุณได้ทำการจองวัคซีนเเล้วเเต่ยังไม่ได้เข้ารับการฉีดวัคซีน", {
+          position: toast.POSITION.TOP_CENTER, 
+        });
+       // alert("คุณได้ทำการจองวัคซีนเเล้วเเต่ยังไม่ได้เข้ารับการฉีดวัคซีน");
         usenavigate("/home");
       }
     }

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-//import { alert } from "react-alertify";
 import logo from "../images/logo.png";
-
+import { toast } from 'react-toastify';
 const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -30,9 +29,15 @@ const Login = () => {
           console.log(Object.keys(resp).length);
 
           if (Object.keys(resp).length <= 1) {
-            alert("กรอก username หรือ password ผิด");
+            toast.error("กรอก username หรือ password ผิด", {
+              position: toast.POSITION.TOP_CENTER, 
+            });
+           // alert("กรอก username หรือ password ผิด");
           } else {
-            alert("เข้าสู่ระบบสำเร็จ");
+           toast.success("เข้าสู่ระบบสำเร็จ", {
+              position: toast.POSITION.TOP_CENTER, 
+            });
+           //alert("เข้าสู่ระบบสำเร็จ");
             sessionStorage.setItem("username", username);
             sessionStorage.setItem("userId", resp.userId);
             sessionStorage.setItem("jwttoken", resp.jwtToken);
@@ -40,7 +45,10 @@ const Login = () => {
           }
         })
         .catch((err) => {
-          alert("กรอก username หรือ password ผิด");
+          toast.error("กรอก username หรือ password ผิด", {
+            position: toast.POSITION.TOP_CENTER, 
+          });
+          //alert("กรอก username หรือ password ผิด");
         });
     }
   };
@@ -53,7 +61,10 @@ const Login = () => {
       username === null
     ) {
       result = false;
-      alert("กรุณากรอก username หรือ password");
+      toast.error("กรุณากรอก username หรือ password", {
+        position: toast.POSITION.TOP_CENTER, 
+      });
+     // alert("กรุณากรอก username หรือ password");
       return result;
     }
     

@@ -8,10 +8,13 @@ import Appheader from "./components/subcomponents/Header";
 import DeTailVac from "./components/DeTailVac";
 import Book from "./components/Book";
 import Assess from "./components/Assess";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
+    
     <BrowserRouter>
+    <ToastContainer />
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/home" element={<Home />}></Route>

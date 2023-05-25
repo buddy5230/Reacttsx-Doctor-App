@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Appheader from "./subcomponents/Header";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface User {
   numvac: string;
   vac: string;
+  symtomps: string;
 }
 const Assess = () => {
   const usenavigate = useNavigate();
@@ -13,63 +15,69 @@ const Assess = () => {
   const id = sessionStorage.getItem("userId");
 
   useEffect(() => {
-    const username = sessionStorage.getItem("username");
-    if (username) {
-      fetch(`http://localhost:4000/users/` + id)
-        .then((res) => res.json())
-        .then((data) => {
-          setUserData(data);
-          console.log(data);
-        })
-        .catch((error) => console.error(error));
-    }
+    fetch(`https://aware-earmuffs-dog.cyclic.app/` + id)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserData(data);
+        console.log(data);
+      })
+      .catch((error) => console.error(error));
   }, [id]);
 
   const handlesubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(userData?.numvac);
-    console.log(userData?.vac);
     if (
       userData?.numvac === null ||
       userData?.numvac === "" ||
       userData?.vac === null ||
       userData?.numvac === ""
     ) {
-      alert("คุณยังไม่ได้ทำการจองวัคซีน");
+      //alert("คุณยังไม่ได้ทำการจองวัคซีน");
+      toast.error("คุณยังไม่ได้ทำการจองวัคซีน", {
+        position: toast.POSITION.TOP_CENTER,
+      });
       usenavigate("/home");
-    } else {
-      fetch(`http://localhost:4000/users/` + id)
+      console.log("symtomps" + userData?.symtomps);
+    } else if (userData?.symtomps === null || userData?.symtomps === "") {
+      fetch(`https://aware-earmuffs-dog.cyclic.app/` + id)
         .then((response) => response.json())
         .then((data) => {
           const updatedData = {
             ...data,
             symtomps: symtomps,
           };
-          if (symtomps === null || symtomps === "") {
-            fetch(`https://aware-earmuffs-dog.cyclic.app/update/` + id, {
-              method: "PUT",
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify(updatedData),
-            })
-              .then(() => {
-                symtompsupdate(symtomps);
-                alert("กรอกเเบบประเมินอาการเรียบร้อยเเล้ว");
-                usenavigate("/home");
-              })
-              .catch((err) => {
-                alert("ล้มเหลว :" + err.message);
+          console.log("ประเมิน : " + symtomps);
+
+          fetch(`https://aware-earmuffs-dog.cyclic.app/update/` + id, {
+            method: "PUT",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(updatedData),
+          })
+            .then(() => {
+              symtompsupdate(symtomps);
+              toast.success("กรอกเเบบประเมินอาการเรียบร้อยเเล้ว", {
+                position: toast.POSITION.TOP_CENTER,
               });
-          } else {
-            alert("คุณประเมินอาการของวัคซีนเข็มนี้เเล้ว");
-            usenavigate("/home");
-          }
-        })
-        .catch((error) => console.error(error));
+              //alert("กรอกเเบบประเมินอาการเรียบร้อยเเล้ว");
+              usenavigate("/home");
+            })
+            .catch((err) => {
+              alert("ล้มเหลว :" + err.message);
+            });
+        });
+    } else {
+      toast.error("คุณประเมินอาการของวัคซีนเข็มนี้เเล้ว", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      // alert("คุณประเมินอาการของวัคซีนเข็มนี้เเล้ว");
+      usenavigate("/home");
     }
   };
+
   return (
     <>
       <Appheader></Appheader>
+
       <div className="flex flex-col items-center justify-center bg-green-500 h-screen ">
         <form
           className="bg-white shadow-md rounded px-10 pt-6 pb-8 mb-5 w-full sm:w-2/3 lg:w-1/3 md:w-1/2"
