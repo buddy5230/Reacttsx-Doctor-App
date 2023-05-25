@@ -18,7 +18,7 @@ const Login = () => {
       ///implentation
       // console.log('proceed');
       let inputobj = { username: username, password: password };
-      fetch("http://localhost:4000/users/login", {
+      fetch("https://aware-earmuffs-dog.cyclic.app/login", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(inputobj),

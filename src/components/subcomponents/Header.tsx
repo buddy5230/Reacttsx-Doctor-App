@@ -94,7 +94,7 @@ const Appheader = () => {
           className="bg-red-500 hover:bg-red-700 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded "
           style={{ whiteSpace: "nowrap" }}
         >
-          <Link to={"/login"}>ออกจากระบบ</Link>
+          <Link to={"/"}>ออกจากระบบ</Link>
         </button>
       </ul>
     </nav>

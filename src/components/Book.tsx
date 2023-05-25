@@ -52,7 +52,7 @@ const Book = () => {
     e.preventDefault();
     if (IsValidate()) {
       if (status === "ยังไม่ได้รับวัคซีน") {
-        fetch(`http://localhost:4000/users/` + id)
+        fetch(`https://aware-earmuffs-dog.cyclic.app/` + id)
           .then((response) => response.json())
           .then((data) => {
             const updatedData = {
@@ -64,7 +64,7 @@ const Book = () => {
               daypoint: daypoint,
               timepoint: timepoint,
             };
-            fetch(`http://localhost:4000/users/update/` + id, {
+            fetch(`https://aware-earmuffs-dog.cyclic.app/update/` + id, {
               method: "PUT",
               headers: { "content-type": "application/json" },
               body: JSON.stringify(updatedData),
@@ -77,7 +77,7 @@ const Book = () => {
                 daypointupdate(daypoint);
                 timepointupdate(timepoint);
                 alert("จองวัคซีนสำเร็จเเล้ว");
-                usenavigate("/");
+                usenavigate("/home");
               })
               .catch((err) => {
                 alert("ล้มเหลว :" + err.message);
@@ -86,7 +86,7 @@ const Book = () => {
           .catch((error) => console.error(error));
       } else { 
         alert("คุณได้ทำการจองวัคซีนเเล้วเเต่ยังไม่ได้เข้ารับการฉีดวัคซีน");
-        usenavigate("/");
+        usenavigate("/home");
       }
     }
   };

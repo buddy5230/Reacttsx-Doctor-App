@@ -90,7 +90,7 @@ const Register = () => {
     };
     if (IsValidate()) {
       //console.log(regobj);
-      fetch("http://localhost:4000/users/register", {
+      fetch("https://aware-earmuffs-dog.cyclic.app/register", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(regobj),
@@ -111,15 +111,15 @@ const Register = () => {
     }
   };
   return (
-    <div className="flex flex-row items-center justify-center h-screen w-screen bg-green-500">
+    <div className="flex flex-row items-center justify-center h-screen w-screen bg-green-500 max-[800px]:flex-col">
       <img
         src={logo}
-        className="rounded-full w-40 h-40 mx-10 mt-0"
+        className="rounded-full w-40 h-40 mx-10 mt-0 max-[500px]: mt-4 mb-3"
         width="200"
         height="200"
       />
       <form
-        className="bg-white shadow-md rounded px-10 pt-6 pb-8 mb-4 w-full md:w-auto md:mx-10"
+        className="bg-white shadow-md rounded px-10 pt-6 pb-8 mb-4 w-full md:w-auto md:mx-10 "
         onSubmit={handlesubmit}
       >
         <div className="mb-4">
@@ -151,7 +151,7 @@ const Register = () => {
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-             
+              type="password" 
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="รหัสผ่าน"
             ></input>

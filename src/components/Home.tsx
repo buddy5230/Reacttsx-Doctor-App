@@ -16,7 +16,7 @@ const Home = () => {
   const id = sessionStorage.getItem("userId");
 
   useEffect(() => {
-    fetch(`http://localhost:4000/users/` + id)
+    fetch(`https://aware-earmuffs-dog.cyclic.app/` + id)
       .then((response) => response.json())
       .then((data) => setUserData(data))
       .catch((error) => console.error(error));

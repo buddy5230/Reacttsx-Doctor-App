@@ -36,7 +36,7 @@ const Assess = () => {
       userData?.numvac === ""
     ) {
       alert("คุณยังไม่ได้ทำการจองวัคซีน");
-      usenavigate("/");
+      usenavigate("/home");
     } else {
       fetch(`http://localhost:4000/users/` + id)
         .then((response) => response.json())
@@ -46,7 +46,7 @@ const Assess = () => {
             symtomps: symtomps,
           };
           if (symtomps === null || symtomps === "") {
-            fetch(`http://localhost:4000/users/update/` + id, {
+            fetch(`https://aware-earmuffs-dog.cyclic.app/update/` + id, {
               method: "PUT",
               headers: { "content-type": "application/json" },
               body: JSON.stringify(updatedData),
@@ -54,14 +54,14 @@ const Assess = () => {
               .then(() => {
                 symtompsupdate(symtomps);
                 alert("กรอกเเบบประเมินอาการเรียบร้อยเเล้ว");
-                usenavigate("/");
+                usenavigate("/home");
               })
               .catch((err) => {
                 alert("ล้มเหลว :" + err.message);
               });
           } else {
             alert("คุณประเมินอาการของวัคซีนเข็มนี้เเล้ว");
-            usenavigate("/");
+            usenavigate("/home");
           }
         })
         .catch((error) => console.error(error));
