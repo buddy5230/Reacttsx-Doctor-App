@@ -6,6 +6,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+## Deployed Link: https://capable-chimera-22cca2.netlify.app/
+## Username for testing : testman
+## Password for testing : 1234
+## You can register for new acc
+
 ### `npm start`
 
 Runs the app in the development mode.\
