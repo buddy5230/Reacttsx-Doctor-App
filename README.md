@@ -9,7 +9,7 @@ In the project directory, you can run:
 ### `Deployed` Link: https://capable-chimera-22cca2.netlify.app/
 ### `Username` for testing : testman
 ### `Password` for testing : 1234
-### 'You can register to create new acc'
+### `You can register to create new acc`
 
 ### `npm start` or `yarn start`
 
