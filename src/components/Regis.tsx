@@ -26,6 +26,9 @@ const Register = () => {
     if (id === null || id === "") {
       isproceed = false;
       errormessage += " ยูสเซอร์เนม";
+    }else if (!/^[a-zA-Z]+$/.test(id)) {
+      isproceed = false;
+      errormessage = "กรุณากรอกยูสเซอร์เนมให้ถูกต้อง";
     }
   
     if (name === null || name === "") {
@@ -230,7 +233,7 @@ const Register = () => {
               onChange={(e) => setGender(e.target.value)}
               name="gender"
               value="male"
-              className=""
+              className="max_button:mr-5"
             ></input>
             <label className="mr-5">ชาย</label>
             <input
@@ -239,9 +242,9 @@ const Register = () => {
               onChange={(e) => setGender(e.target.value)}
               name="gender"
               value="female"
-              className="app-check"
+              className="max_button:mr-5"
             ></input>
-            <label>หญิง</label>
+            <label >หญิง</label>
           </div>
         </div>
         <div className="mb-4">
@@ -259,14 +262,14 @@ const Register = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded phone:mb-2"
         >
           สมัครสมาชิค
         </button>
         |
         <Link
           to={"/"}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded "
         >
           ยกเลิก
         </Link>

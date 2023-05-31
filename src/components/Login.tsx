@@ -38,9 +38,10 @@ const Login = () => {
               position: toast.POSITION.TOP_CENTER, 
             });
            //alert("เข้าสู่ระบบสำเร็จ");
-            sessionStorage.setItem("username", username);
+           // sessionStorage.setItem("username", username);
             sessionStorage.setItem("userId", resp.userId);
-            sessionStorage.setItem("jwttoken", resp.jwtToken);
+            //sessionStorage.setItem("jwttoken", resp.jwtToken);
+            //console.log("resp.jwtToken "+resp.jwtToken)
             usenavigate("/home");
           }
         })
@@ -74,7 +75,7 @@ const Login = () => {
     <div className="flex flex-col items-center justify-center h-screen w-screen bg-green-500">
       <img src={logo} className="rounded-full w-40 h-40 mb-10 mt-0" />
       <form onSubmit={ProceedLoginusingAPI} className="w-full max-w-lg ">
-        <div className="bg-white shadow-md rounded px-10 pt-6 pb-8 mb-4 border-back">
+        <div className="bg-white shadow-md rounded px-10 pt-6 pb-8 mb-4 border-back md:">
           <div className="mb-4">
             <h2 className="text-xl font-bold">เข้าสู่ระบบ</h2>
           </div>
@@ -113,10 +114,10 @@ const Login = () => {
             ></input>
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between ">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
             >
               เข้าสู่ระบบ
             </button>

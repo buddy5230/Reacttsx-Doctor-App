@@ -10,15 +10,16 @@ const Appheader = () => {
     setNav(!nav);
   };
 
-
-  
   return (
-   
-    <nav className="flex items-center h-20 mx-auto px-4 text-back sticky top-0 bg-white">
-      <img src={logo} className="rounded-full w-12 h-12 mb-0 mt-0 ml-40" />
-      <h1 className="w-full text-3xl font-bold text-green-700 mx-5 ">
+    <nav className="flex items-center h-20 mx-auto px-4 text-back sticky top-0 bg-white max-[520px]: flex-row justify-start">
+      <img
+        src={logo}
+        className="rounded-full w-12 h-12 mb-0 mt-0 ml-40 max-[520px]: ml-0"
+      />
+      <h1 className="w-full text-3xl font-bold text-green-700 mx-5">
         หมอพร้อม
       </h1>
+
       <ul className="hidden md:flex">
         <li
           className="m-2 p-2 font-bold  text-2 hover:text-green-700"
@@ -98,9 +99,7 @@ const Appheader = () => {
         </button>
       </ul>
     </nav>
- 
-   
-     );
+  );
 };
 
 export default Appheader;

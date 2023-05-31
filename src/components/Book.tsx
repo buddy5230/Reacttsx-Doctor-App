@@ -167,7 +167,7 @@ const Book = () => {
           </select>
           
           <label htmlFor="date" className="block text-gray-700 font-bold mb-1">
-            วันที่จอง:
+            วันที่จอง :
           </label>
           <input
             type="date"
@@ -177,7 +177,7 @@ const Book = () => {
           />
           
           <label htmlFor="time" className="block text-gray-700 font-bold mb-1">
-            เวลาที่จอง:
+            เวลาที่จอง :
           </label>
           <select
             className="shadow appearance-none border rounded w-full mb-5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
