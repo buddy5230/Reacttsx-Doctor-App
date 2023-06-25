@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Appheader from "./subcomponents/Header";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 const Book = () => {
   const usenavigate = useNavigate();
-  const [status, statusupdate] = useState<string>("");
+  const [status, statusupdate] = useState<string>("จองคิวฉีดวัคซีนเรียบร้อยเเล้ว");
   const [hospital, hospitalupdate] = useState<string>("");
   const [numvac, numvacupdate] = useState<string>("");
   const [vac, vacupdate] = useState<string>("");
   const [daypoint, daypointupdate] = useState<string>("");
   const [timepoint, timepointupdate] = useState<string>("");
+  const [symtomps, symtompsupdate] = useState<string>("ยังไม่ได้กรอกอาการ");
   const id = sessionStorage.getItem("userId");
-
+  const jwt = sessionStorage.getItem("jwttoken");
+  
   const IsValidate = () => {
     let isproceed = true;
     let errormessage = "กรุณากรอกข้อมูลให้ครบ ";
@@ -32,20 +34,19 @@ const Book = () => {
     }
     if (!isproceed) {
       toast.error(errormessage, {
-        position: toast.POSITION.TOP_CENTER, 
+        position: toast.POSITION.TOP_CENTER,
       });
-     // alert(errormessage);
-    } 
-    
+    }
+
     return isproceed;
   };
 
   useEffect(() => {
-    fetch(`https://aware-earmuffs-dog.cyclic.app/` + id)
+    fetch(`https://misty-puce-agouti.cyclic.app/${id}`)
       .then((response) => response.json())
       .then((data) => {
         const status = data.status;
-        //console.log(status);
+        console.log(status);
         statusupdate(status);
       })
       .catch((error) => console.error(error));
@@ -53,51 +54,45 @@ const Book = () => {
 
   const handlesubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let regobj = {
+      hospital,
+      numvac,
+      vac,
+      daypoint,
+      timepoint,
+      status,
+      symtomps,
+    };
     if (IsValidate()) {
-      if (status === "ยังไม่ได้รับวัคซีน") {
-        fetch(`https://aware-earmuffs-dog.cyclic.app/` + id)
-          .then((response) => response.json())
-          .then((data) => {
-            const updatedData = {
-              ...data,
-              status: "จองคิวฉีดวัคซีนเรียบร้อยเเล้ว",
-              hospital: hospital,
-              numvac: numvac,
-              vac: vac,
-              daypoint: daypoint,
-              timepoint: timepoint,
-            };
-            fetch(`https://aware-earmuffs-dog.cyclic.app/update/` + id, {
-              method: "PUT",
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify(updatedData),
-            })
-              .then(() => {
-                statusupdate("จองคิวฉีดวัคซีนเรียบร้อยเเล้ว");
-                hospitalupdate(hospital);
-                numvacupdate(numvac);
-                vacupdate(vac);
-                daypointupdate(daypoint);
-                timepointupdate(timepoint);
-                toast.success("จองวัคซีนสำเร็จเเล้ว", {
-                  position: toast.POSITION.TOP_CENTER, 
-                });
-                //alert("จองวัคซีนสำเร็จเเล้ว");
-                usenavigate("/home");
-              })
-              .catch((err) => {
-                toast.error("ล้มเหลว :" + err.message, {
-                  position: toast.POSITION.TOP_CENTER, 
-                });
-                //alert("ล้มเหลว :" + err.message);
-              });
+      if (status === "ยังไม่ได้รับวัคซีน" || "ได้รับวัคซีนเรียบร้อยเเล้ว") {
+        fetch(`https://misty-puce-agouti.cyclic.app/booking/${id}`, {
+          method: "POST",
+          headers: { "content-type": "application/json" ,Authorization: `${jwt}`,},
+          body: JSON.stringify(regobj),
+        })
+          .then((res) => {
+            return res.json();
           })
-          .catch((error) => console.error(error));
-      } else { 
-        toast.error("คุณได้ทำการจองวัคซีนเเล้วเเต่ยังไม่ได้เข้ารับการฉีดวัคซีน", {
-          position: toast.POSITION.TOP_CENTER, 
-        });
-       // alert("คุณได้ทำการจองวัคซีนเเล้วเเต่ยังไม่ได้เข้ารับการฉีดวัคซีน");
+          .then((resp) => {
+            console.log("resp.ok:", resp.vacId);
+            localStorage.setItem("vacId", resp.vacId);
+            toast.success("จองวัคซีนสำเร็จเเล้ว", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+            usenavigate("/home");
+          })
+          .catch((err) => {
+            toast.error("ล้มเหลว: " + err.message, {
+              position: toast.POSITION.TOP_CENTER,
+            });
+          });
+      } else {
+        toast.error(
+          "คุณได้ทำการจองวัคซีนเเล้วเเต่ยังไม่ได้เข้ารับการฉีดวัคซีน",
+          {
+            position: toast.POSITION.TOP_CENTER,
+          }
+        );
         usenavigate("/home");
       }
     }
@@ -112,7 +107,6 @@ const Book = () => {
           onSubmit={handlesubmit}
         >
           <h1 className="text-center font-bold text-2xl mb-5">จองวัคซีน</h1>
-          
           <label
             className="block text-gray-700 font-bold mb-1"
             htmlFor="hospital"
@@ -129,7 +123,6 @@ const Book = () => {
             <option value="โรงพยาบาลมหาราชนคร">โรงพยาบาลมหาราชนคร</option>
             <option value="โรงพยาบาลช้างเผือก">โรงพยาบาลช้างเผือก</option>
           </select>
-          
           <label
             className="block text-gray-700 font-bold mb-1"
             htmlFor="numvac"
@@ -146,7 +139,6 @@ const Book = () => {
             <option value="2">2</option>
             <option value="3">3</option>
           </select>
-          
           <label
             className="block text-gray-700 font-bold mb-1"
             htmlFor="vaccine"
@@ -165,7 +157,6 @@ const Book = () => {
             <option value="pfizer">pfizer</option>
             <option value="moderna">moderna</option>
           </select>
-          
           <label htmlFor="date" className="block text-gray-700 font-bold mb-1">
             วันที่จอง :
           </label>
@@ -175,7 +166,6 @@ const Book = () => {
             value={daypoint}
             onChange={(e) => daypointupdate(e.target.value)}
           />
-          
           <label htmlFor="time" className="block text-gray-700 font-bold mb-1">
             เวลาที่จอง :
           </label>
@@ -189,14 +179,13 @@ const Book = () => {
             <option value="12:00">12:00</option>
             <option value="15:00">15:00</option>
           </select>
-          
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-1"
           >
             ยืนยัน
           </button>
-          | {" "} {" "} 
+          |{" "}
           <Link
             to={"/home"}
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded "

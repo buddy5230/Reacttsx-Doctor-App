@@ -3,7 +3,8 @@ import Appheader from "./subcomponents/Header";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-interface User {
+type User ={
+  _id:string;
   numvac: string;
   vac: string;
   symtomps: string;
@@ -13,44 +14,46 @@ const Assess = () => {
   const [symtomps, symtompsupdate] = useState<string>("");
   const [userData, setUserData] = useState<User | null>(null);
   const id = sessionStorage.getItem("userId");
-
+  const idvac = localStorage.getItem("vacId");
+  const jwt = sessionStorage.getItem("jwttoken");
   useEffect(() => {
-    fetch(`https://aware-earmuffs-dog.cyclic.app/` + id)
+    if(idvac!==null){
+      fetch(`https://misty-puce-agouti.cyclic.app/historyvac/${id}/${idvac}`)
       .then((res) => res.json())
       .then((data) => {
         setUserData(data);
-        console.log(data);
+        //console.log(setUserData(data));
       })
       .catch((error) => console.error(error));
-  }, [id]);
-
+    }
+    
+  }, [id,idvac]);
+  
   const handlesubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(userData?.numvac);
+    console.log(userData?.vac);
+    console.log(userData?.symtomps);
     if (
       userData?.numvac === null ||
       userData?.numvac === "" ||
       userData?.vac === null ||
-      userData?.numvac === ""
+      userData?.vac === ""
     ) {
-      //alert("คุณยังไม่ได้ทำการจองวัคซีน");
       toast.error("คุณยังไม่ได้ทำการจองวัคซีน", {
         position: toast.POSITION.TOP_CENTER,
       });
       usenavigate("/home");
-      console.log("symtomps" + userData?.symtomps);
-    } else if (userData?.symtomps === null || userData?.symtomps === "") {
-      fetch(`https://aware-earmuffs-dog.cyclic.app/` + id)
-        .then((response) => response.json())
-        .then((data) => {
+    } else if (userData?.symtomps === "ยังไม่ได้กรอกอาการ") {
+     
           const updatedData = {
-            ...data,
             symtomps: symtomps,
           };
           console.log("ประเมิน : " + symtomps);
 
-          fetch(`https://aware-earmuffs-dog.cyclic.app/update/` + id, {
+          fetch(`https://misty-puce-agouti.cyclic.app/assess/${id}/${idvac}`, {           
             method: "PUT",
-            headers: { "content-type": "application/json" },
+            headers: { "content-type": "application/json",Authorization: `${jwt}`, },
             body: JSON.stringify(updatedData),
           })
             .then(() => {
@@ -58,18 +61,16 @@ const Assess = () => {
               toast.success("กรอกเเบบประเมินอาการเรียบร้อยเเล้ว", {
                 position: toast.POSITION.TOP_CENTER,
               });
-              //alert("กรอกเเบบประเมินอาการเรียบร้อยเเล้ว");
               usenavigate("/home");
             })
             .catch((err) => {
               alert("ล้มเหลว :" + err.message);
             });
-        });
+        
     } else {
       toast.error("คุณประเมินอาการของวัคซีนเข็มนี้เเล้ว", {
         position: toast.POSITION.TOP_CENTER,
       });
-      // alert("คุณประเมินอาการของวัคซีนเข็มนี้เเล้ว");
       usenavigate("/home");
     }
   };
@@ -77,7 +78,6 @@ const Assess = () => {
   return (
     <>
       <Appheader></Appheader>
-
       <div className="flex flex-col items-center justify-center bg-green-500 h-screen ">
         <form
           className="bg-white shadow-md rounded px-10 pt-6 pb-8 mb-5 w-full sm:w-2/3 lg:w-1/3 md:w-1/2"

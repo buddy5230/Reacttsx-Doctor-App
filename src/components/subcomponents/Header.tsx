@@ -44,6 +44,12 @@ const Appheader = () => {
           className="m-2 p-2 font-bold  text-2 hover:text-green-700"
           style={{ whiteSpace: "nowrap" }}
         >
+          <Link to={"/history"}>ประวัติการรับวัคซีน</Link>
+        </li>
+        <li
+          className="m-2 p-2 font-bold  text-2 hover:text-green-700"
+          style={{ whiteSpace: "nowrap" }}
+        >
           <Link to={"/assess"}>ประเมินอาการ</Link>
         </li>
         <button
@@ -70,7 +76,7 @@ const Appheader = () => {
           className="m-2 p-2 border-b border-gray-600 hover:text-green-700"
           style={{ whiteSpace: "nowrap" }}
         >
-          <Link to={"/"}>หน้าหลัก</Link>
+          <Link to={"/home"}>หน้าหลัก</Link>
         </li>
         <li
           className="m-2 p-2 border-b border-gray-600 hover:text-green-700"
@@ -84,6 +90,12 @@ const Appheader = () => {
           style={{ whiteSpace: "nowrap" }}
         >
           <Link to={"/detailvac"}>ข้อมูลวัคซีน</Link>
+        </li>
+        <li
+          className="m-2 p-2 border-b border-gray-600 hover:text-green-700"
+          style={{ whiteSpace: "nowrap" }}
+        >
+          <Link to={"/history"}>ประวัติการรับวัคซีน</Link>
         </li>
         <li
           className="m-2 p-2 border-b border-gray-600 hover:text-green-700"

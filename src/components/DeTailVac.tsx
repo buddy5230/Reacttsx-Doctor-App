@@ -12,7 +12,6 @@ const DeTailVac = () => {
       <div className="flex flex-col items-center justify-center bg-green-500">
         <div className="bg-white shadow-md rounded px-10 pt-6 pb-8 mb-5 mt-5">
           <h1 className="font-bold text-center text-2xl">ข้อมูลวัคซีน</h1>
-          
           <br />
           <h3 className=" text-b">1. วัคซีนไฟเซอร์ (Pfizer)</h3>
           <img

@@ -3,30 +3,23 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
 import { toast } from "react-toastify";
 const Register = () => {
-  const [id, setId] = useState<string>("");
+  const [username, setId] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [gender, setGender] = useState<string>("");
-  const [status, setStatus] = useState<string>("ยังไม่ได้รับวัคซีน");
-  const [hospital, setHospital] = useState<string>("");
-  const [numvac, setNumvac] = useState<string>("");
-  const [vac, setVac] = useState<string>("");
-  const [daypoint, setDaypoint] = useState<string>("");
-  const [timepoint, setTimepoint] = useState<string>("");
-  const [symtomps, setSymtomps] = useState<string>("");
   const usenavigate = useNavigate();
 
   const IsValidate = () => {
     let isproceed = true;
     let errormessage = "กรุณาเติมข้อมูลลงในช่องให้ครบ";
   
-    if (id === null || id === "") {
+    if (username === null || username === "") {
       isproceed = false;
       errormessage += " ยูสเซอร์เนม";
-    }else if (!/^[a-zA-Z]+$/.test(id)) {
+    }else if (!/^[a-zA-Z]+$/.test(username)) {
       isproceed = false;
       errormessage = "กรุณากรอกยูสเซอร์เนมให้ถูกต้อง";
     }
@@ -84,24 +77,17 @@ const Register = () => {
   const handlesubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let regobj = {
-      id,
+      username,
       name,
       password,
       email,
       phone,
       address,
       gender,
-      status,
-      hospital,
-      numvac,
-      vac,
-      daypoint,
-      timepoint,
-      symtomps,
+     
     };
     if (IsValidate()) {
-      //console.log(regobj);
-      fetch("https://aware-earmuffs-dog.cyclic.app/register", {
+      fetch("https://misty-puce-agouti.cyclic.app/register", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(regobj),
@@ -111,14 +97,12 @@ const Register = () => {
             toast.success("สมัครสมาชิคเรียบร้อยเเล้ว", {
               position: toast.POSITION.TOP_CENTER,
             });
-            // alert("สมัครสมาชิคเรียบร้อยเเล้ว.");
             usenavigate("/");
           } else {
             res.json().then((data) => {
               toast.error("ล้มเหลว: " + data.message, {
                 position: toast.POSITION.TOP_CENTER,
               });
-              //alert("ล้มเหลว: " + data.message);
             });
           }
         })
@@ -126,7 +110,6 @@ const Register = () => {
           toast.error("ล้มเหลว: " + err.message, {
             position: toast.POSITION.TOP_CENTER,
           });
-          //alert("ล้มเหลว: " + err.message);
         });
     }
   };
@@ -154,7 +137,7 @@ const Register = () => {
               ยูสเซอร์เนม <span className="errmsg">*</span>
             </label>
             <input
-              value={id}
+              value={username}
               onChange={(e) => setId(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="ยูสเซอร์เนม"

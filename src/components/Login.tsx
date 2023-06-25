@@ -14,10 +14,8 @@ const Login = () => {
   const ProceedLoginusingAPI = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validate()) {
-      ///implentation
-      // console.log('proceed');
       let inputobj = { username: username, password: password };
-      fetch("https://aware-earmuffs-dog.cyclic.app/login", {
+      fetch("https://misty-puce-agouti.cyclic.app/login", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(inputobj),
@@ -27,21 +25,26 @@ const Login = () => {
         })
         .then((resp) => {
           console.log(Object.keys(resp).length);
-
+          sessionStorage.setItem("role",resp.role);
+          const checkRole = sessionStorage.getItem("role");
+          console.log("role",checkRole);
           if (Object.keys(resp).length <= 1) {
             toast.error("กรอก username หรือ password ผิด", {
               position: toast.POSITION.TOP_CENTER, 
             });
-           // alert("กรอก username หรือ password ผิด");
+          }else if(checkRole === "Admin"){
+            toast.success("เข้าสู่ระบบสำเร็จ", {
+              position: toast.POSITION.TOP_CENTER, 
+            });
+
+            sessionStorage.setItem("userId", resp.userId);
+            usenavigate("/admin");
           } else {
            toast.success("เข้าสู่ระบบสำเร็จ", {
               position: toast.POSITION.TOP_CENTER, 
             });
-           //alert("เข้าสู่ระบบสำเร็จ");
-           // sessionStorage.setItem("username", username);
             sessionStorage.setItem("userId", resp.userId);
-            //sessionStorage.setItem("jwttoken", resp.jwtToken);
-            //console.log("resp.jwtToken "+resp.jwtToken)
+            sessionStorage.setItem("jwttoken", resp.jwtToken);  
             usenavigate("/home");
           }
         })
@@ -49,7 +52,6 @@ const Login = () => {
           toast.error("กรอก username หรือ password ผิด", {
             position: toast.POSITION.TOP_CENTER, 
           });
-          //alert("กรอก username หรือ password ผิด");
         });
     }
   };
@@ -65,7 +67,6 @@ const Login = () => {
       toast.error("กรุณากรอก username หรือ password", {
         position: toast.POSITION.TOP_CENTER, 
       });
-     // alert("กรุณากรอก username หรือ password");
       return result;
     }
     
