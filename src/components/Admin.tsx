@@ -126,7 +126,7 @@ const Admin = () => {
       })
       .then((data) => {
         localStorage.setItem("showToastDelete", "true"); 
-        usenavigate("/admin");
+       // usenavigate("/admin");
         window.location.reload();
       })
       .catch((error) => {
