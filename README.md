@@ -7,9 +7,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 ### `Deployed` Link: https://boisterous-tapioca-752f30.netlify.app/
+### `Admin Acc`
 ### `Username` for testing : admintest
 ### `Password` for testing : 1234
 
+### `User Acc`
 ### `Username` for testing : fortest
 ### `Password` for testing : 1234
 ### `!You can register to create new acc!`
