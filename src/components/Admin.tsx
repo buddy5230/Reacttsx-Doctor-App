@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navadmin from "./subcomponents/Navadmin";
+import {useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 type User = {
   _id: string;
@@ -37,7 +38,7 @@ const Admin = () => {
   const [combineData, setCombineData] = useState<Test[]>([]);
   const [formData, setFormData] = useState("");
   const [updateId, setUpdateId] = useState("");
-
+  const usenavigate = useNavigate();
   useEffect(() => {
     fetch(`https://misty-puce-agouti.cyclic.app/`)
       .then((response) => response.json())
@@ -125,7 +126,7 @@ const Admin = () => {
       })
       .then((data) => {
         localStorage.setItem("showToastDelete", "true"); 
-
+        usenavigate("/admin");
         window.location.reload();
       })
       .catch((error) => {

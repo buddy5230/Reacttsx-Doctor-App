@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 const Book = () => {
   const usenavigate = useNavigate();
   const [status, statusupdate] = useState<string>("จองคิวฉีดวัคซีนเรียบร้อยเเล้ว");
+  const [newstatus, statusNewupdate] = useState<string>("");
   const [hospital, hospitalupdate] = useState<string>("");
   const [numvac, numvacupdate] = useState<string>("");
   const [vac, vacupdate] = useState<string>("");
@@ -45,9 +46,8 @@ const Book = () => {
     fetch(`https://misty-puce-agouti.cyclic.app/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        const status = data.status;
-        console.log(status);
-        statusupdate(status);
+        const status1 = data.status;
+        statusNewupdate(status1);
       })
       .catch((error) => console.error(error));
   }, [id]);
@@ -64,7 +64,7 @@ const Book = () => {
       symtomps,
     };
     if (IsValidate()) {
-      if (status === "ยังไม่ได้รับวัคซีน" || "ได้รับวัคซีนเรียบร้อยเเล้ว") {
+      if (newstatus === "ยังไม่ได้รับวัคซีน" || "ได้รับวัคซีนเรียบร้อยเเล้ว") {
         fetch(`https://misty-puce-agouti.cyclic.app/booking/${id}`, {
           method: "POST",
           headers: { "content-type": "application/json" ,Authorization: `${jwt}`,},
